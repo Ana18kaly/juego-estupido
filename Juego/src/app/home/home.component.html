@@ -1,0 +1,17 @@
+<div class="header-cute">
+  
+  <div>
+    <button routerLink="/history" type="button" class="btn-cute">Historial</button>
+    <button [disabled]="!enablebuttonUnirse"  (click)="newGame()" type="button" class="btn-cute ms-2">Crear partida</button>
+    <button [disabled]="!enablebuttonLogout" (click)="logout()" type="button" class="btn-cute ms-2">Logout</button>
+  </div>
+</div>
+
+<div class="game-list-container">
+  <ul class="game-list">
+    <li *ngFor="let game of games" class="game-item">
+     
+      <button (click)="unirse(game.id)" type="button" class="btn-cute">Unirse</button>
+    </li>
+  </ul>
+</div>

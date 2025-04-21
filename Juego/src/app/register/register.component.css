@@ -1,0 +1,53 @@
+.register-title {
+    text-align: center;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #ff69b4;
+    margin-top: 2rem;
+    font-size: 2.5rem;
+  }
+  
+  .register-form {
+    background-color: #fff0f5;
+    border: 3px dashed #ffb6c1;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 6px 12px rgba(255, 182, 193, 0.3);
+  }
+  
+  .cute-input {
+    border-radius: 15px;
+    border: 1px solid #ffb6c1;
+    padding: 0.6rem 1rem;
+    transition: 0.3s ease;
+  }
+  
+  .cute-input:focus {
+    border-color: #ff69b4;
+    box-shadow: 0 0 8px rgba(255, 105, 180, 0.3);
+    outline: none;
+  }
+  
+  .submit-btn {
+    background-color: #ffb6c1;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 0.6rem 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    margin-top: 1rem;
+    transition: all 0.3s ease-in-out;
+    display: inline-block;
+  }
+  
+  .submit-btn:hover {
+    background-color: #ff69b4;
+  }
+  
+  .submit-btn:disabled {
+    background-color: #ffc0cb;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  

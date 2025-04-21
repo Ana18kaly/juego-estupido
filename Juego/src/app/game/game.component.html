@@ -1,0 +1,67 @@
+<div #firstDiv id="firstDiv" class="game-container">
+  <div (mousedown)="barraDisparos ? handleMouseDown($event): null" class="shooting-area">
+      <div *ngIf="isVisibleMissile">
+          <div #secondDiv id="secondDiv" *ngIf="showMarker" 
+               [style.left.px]="markerX" 
+               [style.top.px]="markerY" 
+               [@slideUpDown]="{ value: isVisibleMissile, params: { firstDivWidth: firstDivWidth } }" 
+               (@slideUpDown.done)="onAnimationDonee()"
+               class="missile-container">
+              <div class="missile-wrapper">
+                  <img src="../../assets/bomba.png" alt="Barco de vela" class="missile-image">
+              </div>
+          </div>
+      </div>
+      <div class="lives-display">
+          <div class="lives-content">
+              <span class="lives-text">VIDAS RESTANTES:</span>
+              <span class="lives-count">
+                  <ng-container *ngFor="let heart of [].constructor(vida)">
+                      ❤️
+                  </ng-container>
+                  {{vida}}
+              </span>
+          </div>
+          <!-- Add shots counter -->
+          <div class="shots-content">
+              <span class="shots-text">Tiros: {{shots}} | Aciertos: {{hits}} 🎯</span>
+          </div>
+      </div>
+  </div>
+
+  <div *ngIf="isVisible" class="ship-container">
+    <div *ngIf="vida === 5 || vida === 4.5" class="ship-level" [@slideInOut] (@slideInOut.done)="onAnimationDone()">
+      <div id="miDiv" class="ship-wrapper">
+        <img src="../../assets/barquitoo.jpg" alt="Barco de vela" class="ship-image">
+      </div>
+    </div>
+    <div *ngIf="vida === 4 || vida === 3.5" class="ship-level" [@slideInOut4] (@slideInOut4.done)="onAnimationDone()">
+      <div id="miDiv" class="ship-wrapper">
+        <img src="../../assets/barquitoo.jpg" alt="Barco de vela" class="ship-image">
+      </div>
+    </div>
+    <div *ngIf="vida === 3 || vida === 2.5" class="ship-level" [@slideInOut3] (@slideInOut3.done)="onAnimationDone()">
+      <div id="miDiv" class="ship-wrapper">
+        <img src="../../assets/barquitoo.jpg" alt="Barco de vela" class="ship-image">
+      </div>
+    </div>
+    <div *ngIf="vida === 2 || vida === 1.5" class="ship-level" [@slideInOut2] (@slideInOut2.done)="onAnimationDone()">
+      <div id="miDiv" class="ship-wrapper">
+        <img src="../../assets/barquitoo.jpg" alt="Barco de vela" class="ship-image">
+      </div>
+    </div>
+    <div *ngIf="vida === 1 || vida === 0.5" class="ship-level" [@slideInOut1] (@slideInOut1.done)="onAnimationDone()">
+      <div id="miDiv" class="ship-wrapper">
+        <img src="../../assets/barquitoo.jpg" alt="Barco de vela" class="ship-image">
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.shots-content {
+    margin-top: 10px;
+    color: #ff1493;
+    font-weight: bold;
+}
+</style>

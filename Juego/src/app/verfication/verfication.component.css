@@ -1,0 +1,53 @@
+.verify-title {
+    text-align: center;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    color: #ff6ec7;
+    margin-top: 2rem;
+    font-size: 2.2rem;
+  }
+  
+  .verify-form {
+    background-color: #fff0fa;
+    border: 3px dashed #ffbde7;
+    padding: 2rem;
+    border-radius: 20px;
+    box-shadow: 0 6px 12px rgba(255, 192, 203, 0.3);
+  }
+  
+  .cute-input {
+    border-radius: 15px;
+    border: 1px solid #ffb6c1;
+    padding: 0.6rem 1rem;
+    margin-bottom: 1rem;
+    transition: 0.3s ease;
+  }
+  
+  .cute-input:focus {
+    border-color: #ff6ec7;
+    box-shadow: 0 0 8px rgba(255, 105, 180, 0.3);
+    outline: none;
+  }
+  
+  .submit-btn {
+    background-color: #ffb6c1;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 0.6rem 1.5rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 0.5rem;
+    margin-top: 1rem;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .submit-btn:hover {
+    background-color: #ff69b4;
+  }
+  
+  .submit-btn:disabled {
+    background-color: #ffc0cb;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  

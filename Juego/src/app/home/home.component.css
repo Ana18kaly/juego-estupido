@@ -1,0 +1,74 @@
+body {
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    background-color: #fff0f5;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .header-cute {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffe4f0;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(255, 192, 203, 0.3);
+    margin: 1rem auto;
+    width: 90%;
+  }
+  
+  .header-cute h1 {
+    color: #ff69b4;
+    font-weight: bold;
+  }
+  
+  .btn-cute {
+    background-color: #ffb6c1;
+    color: #fff;
+    border: none;
+    border-radius: 25px;
+    padding: 0.5rem 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 5px rgba(255, 105, 180, 0.3);
+  }
+  
+  .btn-cute:hover {
+    background-color: #ff69b4;
+  }
+  
+  .btn-cute:disabled {
+    background-color: #ffc0cb;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+  
+  .game-list-container {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .game-list {
+    width: 80%;
+    margin-top: 1rem;
+    list-style: none;
+    padding: 0;
+  }
+  
+  .game-item {
+    background-color: #f8e8ff;
+    border: 2px dashed #dda0dd;
+    border-radius: 15px;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background-color 0.3s ease;
+  }
+  
+  .game-item:hover {
+    background-color: #f0d0ff;
+  }
+  

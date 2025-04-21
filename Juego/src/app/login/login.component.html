@@ -1,0 +1,15 @@
+<h1 class="login-title">LOGIN</h1>
+<div class="d-flex justify-content-center">
+  <form [formGroup]="singupForm" class="login-form w-50">
+    <div class="mb-3">
+      <label for="email" class="form-label">Email address</label>
+      <input formControlName="email" type="email" class="form-control cute-input" id="email" autocomplete="off" required>
+    </div>
+    <div class="mb-3">
+      <label for="password" class="form-label">Password</label>
+      <input formControlName="password" type="password" class="form-control cute-input" id="password" autocomplete="off" required>
+    </div>
+    <button [disabled]="!enablebutton" (click)="onSubmit()" class="submit-btn" id="submit">Iniciar sesión</button>
+    <button (click)="register()" class="submit-btn">No tengo cuenta</button>
+  </form>
+</div>

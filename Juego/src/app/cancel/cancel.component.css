@@ -1,0 +1,26 @@
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #dfdfdf;
+}
+
+.submit-btn{
+    width: 100px; /* Ancho del botón */
+    height: 50px; /* Altura del botón */
+    background: #814792;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: .3s;
+    color: #fff;
+    font-weight: bold;
+    font-size: 0.9rem;
+    margin-top: 10px;
+}
+
+.submit-btn:hover{
+    background: #6F2C6C;
+    transform: scale(1.05,1);
+}

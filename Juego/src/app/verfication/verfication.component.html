@@ -1,0 +1,10 @@
+<h1 class="verify-title">VERIFICACIÓN DE DOS PASOS</h1>
+
+<div class="d-flex justify-content-center">
+  <form [formGroup]="singupForm" class="verify-form w-50">
+    <label for="text" class="form-label">Código</label>
+    <input formControlName="code" type="text" class="form-control cute-input" id="code" autocomplete="off" required>
+    
+    <button [disabled]="!enablebutton" (click)="onSubmit()" class="submit-btn" id="submit">VERIFICAR</button>
+  </form>
+</div>
