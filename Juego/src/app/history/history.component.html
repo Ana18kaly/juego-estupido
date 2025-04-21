@@ -5,6 +5,7 @@
   <div style="display: flex; justify-content: center;">
     <table class="table">
       <thead>
+        
         <tr>
           <th scope="col">#</th>
           <th scope="col">Jugador 1</th>
@@ -14,33 +15,30 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let historys of historys">
-          <th scope="row">{{historys.id}}</th>
+        <tr *ngFor="let history of historys">
+          <th scope="row">{{history.id}}</th>
           <td>
-            <div>{{historys.jugador1}}</div>
+            <div>{{history.jugador1}}</div>
             <div class="stats">
-              <small>Tiros: {{historys.shots_player1 || historys.tiros_jugador1 || 0}}</small>
-              <small>Aciertos: {{historys.hits_player1 || historys.aciertos_jugador1 || 0}}</small>
+              <small>Tiros: {{history.tiros_jugador1 || 0}}</small>
+              <small>Aciertos: {{history.aciertos_jugador1 || 0}}</small>
             </div>
           </td>
           <td>
-            <div>{{historys.jugador2}}</div>
+            <div>{{history.jugador2}}</div>
             <div class="stats">
-              <small>Tiros: {{historys.shots_player2 || historys.tiros_jugador2 || 0}}</small>
-              <small>Aciertos: {{historys.hits_player2 || historys.aciertos_jugador2 || 0}}</small>
+              <small>Tiros: {{history.tiros_jugador2 || 0}}</small>
+              <small>Aciertos: {{history.aciertos_jugador2 || 0}}</small>
             </div>
           </td>
-          <td [ngStyle]="{'background-color': historys.is_active ? 'forestgreen' : 'brown', 'color': 'white'}">
-            {{ historys.is_active ? 'En curso' : 'Finalizada' }}
+          <td [ngStyle]="{'background-color': history.is_active ? 'forestgreen' : 'brown', 'color': 'white'}">
+            {{ history.is_active ? 'En curso' : 'Finalizada' }}
           </td>
           <td>
-            <div>Ganador: {{historys.ganador || 'Sin ganador'}}</div>
-            <div class="stats">
-              <small>Total tiros: {{(historys.tiros_jugador1 || 0) + (historys.tiros_jugador2 || 0)}}</small>
-              <small>Total aciertos: {{(historys.aciertos_jugador1 || 0) + (historys.aciertos_jugador2 || 0)}}</small>
-            </div>
+            <div>Ganador: {{history.ganador || 'Sin ganador'}}</div>
           </td>
         </tr>
+        
       </tbody>
     </table>
   </div>

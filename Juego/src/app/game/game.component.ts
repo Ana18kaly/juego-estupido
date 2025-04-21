@@ -108,6 +108,10 @@ export class GameComponent implements OnInit {
         this.gameservice.win(id, win).subscribe(
           (response) =>{
             localStorage.removeItem('game')
+
+            this.guardarPartidaEnHistorial(); // <- Llamamos la función
+
+
             Swal.fire({
               title: "El contrincante ha huido!",
               text: "Ganaste",
@@ -253,6 +257,31 @@ export class GameComponent implements OnInit {
   prende(){
     this.isVisible = true
   }
+
+  guardarPartidaEnHistorial() {
+    let user = JSON.parse(localStorage.getItem('user') || '{}');
+    
+    const nuevaPartida = {
+      id: Date.now(),
+      jugador1: user.name,
+      jugador2: 'Desconocido', // reemplaza si tienes el nombre del rival
+      tiros_jugador1: this.shots,   // Este es el contador de tiros del jugador 1
+      aciertos_jugador1: this.hits, // Este es el contador de aciertos del jugador 1
+      tiros_jugador2: 0, // Si tienes el contador de tiros del otro jugador, añádelo aquí
+      aciertos_jugador2: 0, // Lo mismo para los aciertos del jugador 2
+      is_active: false,
+      ganador: user.name
+    };
+    
+    const historialString = localStorage.getItem('historialPartidas');
+    const historial = historialString ? JSON.parse(historialString) : [];
+    
+    historial.push(nuevaPartida);
+    localStorage.setItem('historialPartidas', JSON.stringify(historial));
+  }
+  
+  
+
   ngOnDestroy(): void {
     if(this.echo){
       const id = localStorage.getItem('game')
@@ -261,7 +290,7 @@ export class GameComponent implements OnInit {
           localStorage.removeItem('game')
           Swal.fire({
             title: "Partida finalizada!",
-            text: "Bye >:/",
+            text: "Byeeeeee",
             icon: "error"
             }).then((result) => {
               this.router.navigate(['/home']);

@@ -33,49 +33,35 @@ export class HistoryComponent {
   }
 
   ngOnInit(): void {
-    // Primero obtenemos el historial
     this.authservice.history().subscribe({
-      next: (response) => {
-        console.log('Datos del historial:', response.data);
-        // Transformamos los datos para asegurarnos de tener los nombres
-        this.historys = response.data.map((item: any) => ({
-          ...item,
-          user_1: item.user_1?.name || item.user_1,
-          user_2: item.user_2?.name || item.user_2
-        }));
-      },
-      error: (error) => {
-        console.error('Error al obtener historial:', error);
-        if(error.status == 401){
-          this.router.navigate(['/login']);
-        }
-        Swal.fire({
-          title: 'Aviso',
-          text: error.error?.msg || 'Error al cargar el historial',
-          icon: 'info',
-          confirmButtonText: 'Aceptar'
-        });
-      }
-    });
+        next: (response) => {
+            console.log('Datos del historial:', response.data);
+            this.historys = response.data;
 
-    // Manejo del websocket con mejor control de errores
-    try {
-      this.echo.channel('history-game')
-        .listen('.history-game-event', (e: any) => {
-          console.log('Nuevo evento de historial:', e);
-          if (e.hostorial) {
-            const newHistory = {
-              ...e.hostorial,
-              user_1: e.hostorial.user_1?.name || e.hostorial.user_1,
-              user_2: e.hostorial.user_2?.name || e.hostorial.user_2
-            };
-            this.historys.push(newHistory);
-          }
-        });
-    } catch (error) {
-      console.error('Error en la conexión websocket:', error);
-    }
-  }
+            // Procesar los tiros y aciertos en el historial
+            this.historys.forEach((game: any) => {
+                console.log(`Partida ${game.id}`);
+                game.tiros.forEach((shot: any) => {
+                    console.log(`Jugador: ${shot.player}, Tiro ${shot.shot_number}: ${shot.is_correct}`);
+                });
+            });
+        },
+        error: (error) => {
+            console.error('Error al obtener historial:', error);
+            if (error.status == 401) {
+                this.router.navigate(['/login']);
+            }
+            Swal.fire({
+                title: 'Aviso',
+                text: error.error?.msg || 'Error al cargar el historial',
+                icon: 'info',
+                confirmButtonText: 'Aceptar'
+            });
+        }
+    });
+}
+  
+  
 
   // Instead of directly using window
   private getWindow(): any {
