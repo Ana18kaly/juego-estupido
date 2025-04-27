@@ -1,6 +1,6 @@
 //Aquí es donde gestionas la interacción del usuario, el manejo de eventos
 //y la manipulación de datos relacionados con el estado de la vista.
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common'; 
 import { GameService } from '../core/services/game.service';
 import { trigger, state, style, animate, transition } from '@angular/animations';
@@ -72,9 +72,11 @@ export class GameComponent implements OnInit {
   firstDivWidth!: number;
   shots = 0;  // Contador de tiros
   hits = 0;   // Contador de aciertos
+  boardState: any;
+  isProcessingShot: any;
 
 
-  constructor(private elementRef: ElementRef, private gameservice: GameService, private router: Router){
+  constructor(private elementRef: ElementRef, private gameservice: GameService, private router: Router, private cdr: ChangeDetectorRef){
     (window as any).Pusher = Pusher;
     this.echo = new Echo({
       broadcaster: 'pusher',
@@ -90,6 +92,11 @@ export class GameComponent implements OnInit {
  
   // User information
   ngOnInit(): void {
+
+    setTimeout(() => {
+      this.barraDisparos = true;
+      this.cdr.detectChanges();
+  });
     let user = JSON.parse(localStorage.getItem('user') || '{}');
     let userId = user.id; 
 
@@ -99,7 +106,7 @@ export class GameComponent implements OnInit {
         this.prende();
       }
     });
-
+    
     this.echo.channel('game-cancel-game').listen('.game-cancel-event', (e: any) => {
       if(e.cancel.is_active){
         let user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -151,6 +158,8 @@ export class GameComponent implements OnInit {
         if(userId === response.data.turn){
           this.prende();
         }
+        this.boardState = response.data;
+        this.cdr.detectChanges();
       },
       (error) => {
         if(error.status == 404){
@@ -234,21 +243,55 @@ export class GameComponent implements OnInit {
   }
   startAnimation() {
   }
-  handleMouseDown(event: MouseEvent) {// Lógica de mover el misil o disparar
-    this.barraDisparos = false
-    const container = event.currentTarget as HTMLElement;
-    const rect = container.getBoundingClientRect();
-    this.markerX = event.clientX - rect.left;
-    this.markerY = event.clientY - rect.top;
-    this.showMarker = true;
-    this.firstDivWidth -=this.markerY
-    this.shots++; // Incrementar tiros con cada disparo
-
-    if (this.sum < 2){
-      this.isVisibleMissile = true; 
-    }
-    this.sum++;
-    
+    handleMouseDown(event: MouseEvent) {
+      if (this.isProcessingShot) return;
+      
+      Promise.resolve().then(() => {
+          this.isProcessingShot = true;
+          this.barraDisparos = false;
+          this.cdr.detectChanges();
+          
+          // Lógica del disparo
+          const container = event.currentTarget as HTMLElement;
+          const rect = container.getBoundingClientRect();
+          this.markerX = event.clientX - rect.left;
+          this.markerY = event.clientY - rect.top;
+          this.showMarker = true;
+          this.firstDivWidth -= this.markerY;
+          this.shots++; // Incrementar tiros
+  
+          const gameId = localStorage.getItem('game');
+          if (gameId) {
+              this.gameservice.board(gameId).subscribe({
+                  next: (response) => {
+                      console.log('Estado del tablero:', response);
+                      this.boardState = response.data;
+                      
+                      if (this.sum < 2) {
+                          this.isVisibleMissile = true;
+                      }
+                      this.sum++;
+                      
+                      // Al finalizar el disparo exitosamente
+                      this.isProcessingShot = false;
+                  },
+                  error: (error) => {
+                      console.error('Error al obtener el tablero:', error);
+                      if (error.status === 401) {
+                          this.router.navigate(['/login']);
+                      }
+                      Swal.fire({
+                          title: 'Error',
+                          text: error.error?.msg || 'Error al actualizar el tablero',
+                          icon: 'error',
+                          confirmButtonText: 'Aceptar'
+                      });
+                      // Asegurarse de resetear el flag en caso de error
+                      this.isProcessingShot = false;
+                  }
+              });
+          }
+      });
   }
   prende(){
     this.isVisible = true

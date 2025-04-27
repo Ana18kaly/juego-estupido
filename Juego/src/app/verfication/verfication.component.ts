@@ -37,6 +37,7 @@ onSubmit(){
         this.res = response.data
         localStorage.removeItem('email')
         localStorage.setItem('token', this.res.token)
+        console.log(this.res.token)
         localStorage.setItem('user', JSON.stringify(this.res.user))
         this.enablebutton = true
         Swal.fire({

@@ -19,15 +19,15 @@
           <td>
             <div>{{historys.jugador1}}</div>
             <div class="stats">
-              <small>Tiros: {{historys.shots_player1 || historys.tiros_jugador1 || 0}}</small>
-              <small>Aciertos: {{historys.hits_player1 || historys.aciertos_jugador1 || 0}}</small>
+              <small>Tiros: {{historys.tiros_jugador1 || historys.tiros_jugador1 || 0}}</small>
+              <small>Aciertos: {{historys.aciertos_jugador1 || historys.aciertos_jugador1 || 0}}</small>
             </div>
           </td>
           <td>
             <div>{{historys.jugador2}}</div>
             <div class="stats">
-              <small>Tiros: {{historys.shots_player2 || historys.tiros_jugador2 || 0}}</small>
-              <small>Aciertos: {{historys.hits_player2 || historys.aciertos_jugador2 || 0}}</small>
+              <small>Tiros: {{historys.tiros_jugador2 || historys.tiros_jugador2 || 0}}</small>
+              <small>Aciertos: {{historys.aciertos_jugador2 || historys.aciertos_jugador2 || 0}}</small>
             </div>
           </td>
           <td [ngStyle]="{'background-color': historys.is_active ? 'forestgreen' : 'brown', 'color': 'white'}">

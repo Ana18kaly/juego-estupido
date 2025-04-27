@@ -37,12 +37,21 @@ export class HistoryComponent {
     this.authservice.history().subscribe({
       next: (response) => {
         console.log('Datos del historial:', response.data);
-        // Transformamos los datos para asegurarnos de tener los nombres
-        this.historys = response.data.map((item: any) => ({
-          ...item,
-          user_1: item.user_1?.name || item.user_1,
-          user_2: item.user_2?.name || item.user_2
-        }));
+        this.historys = response.data.map((item: any) => {
+          // Calcular tiros y aciertos para cada jugador
+          const tirosJugador1 = item.tiros.filter((tiro: any) => tiro.player === item.jugador1);
+          const tirosJugador2 = item.tiros.filter((tiro: any) => tiro.player === item.jugador2);
+          
+          return {
+            ...item,
+            tiros_jugador1: tirosJugador1.length,
+            tiros_jugador2: tirosJugador2.length,
+            aciertos_jugador1: tirosJugador1.filter((tiro: any) => tiro.is_correct === 'Acierto').length,
+            aciertos_jugador2: tirosJugador2.filter((tiro: any) => tiro.is_correct === 'Acierto').length,
+            total_tiros: item.tiros.length,
+            total_aciertos: item.tiros.filter((tiro: any) => tiro.is_correct === 'Acierto').length
+          };
+        });
       },
       error: (error) => {
         console.error('Error al obtener historial:', error);

@@ -41,11 +41,11 @@ export class GameService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.put(`${this.url}turn/${id}`, {}, { headers: headers });
   } 
-  public board():Observable<any>{
-    let token = localStorage.getItem('token')
+  public board(id: any): Observable<any> {
+    let token = localStorage.getItem('token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put(`${this.url}/board`, { headers: headers });
-  }  
+    return this.http.put(`${this.url}board/${id}`, {}, { headers: headers });
+  }
   public info(id:any):Observable<any>{
     let token = localStorage.getItem('token')
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
